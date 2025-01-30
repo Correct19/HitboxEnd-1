@@ -22,7 +22,7 @@ while task.wait() do
 
                 if not lastTouched[attackerName] or (tick() - lastTouched[attackerName]) > debounceTime then
                     lastTouched[attackerName] = tick()
-                    -- Lógica adicional aqui
+                    
                 end
             end
         end)
