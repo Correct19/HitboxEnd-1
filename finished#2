@@ -1,0 +1,30 @@
+local npcs
+local debounceTime = 2.2
+local lastTouched = {}
+
+while task.wait() do
+    npcs = workspace.NPCFolders.EnemyFolder
+
+    for _, v in next, npcs:GetChildren() do
+        if not v:FindFirstChild("HumanoidRootPart") then continue end
+
+        local rootPart = v.HumanoidRootPart
+        rootPart.Size = Vector3.new(15, 15, 15)
+        rootPart.CanCollide = false
+        rootPart.Transparency = 0.8
+        rootPart.BrickColor = BrickColor.new("Really yellow")
+        rootPart.Material = Enum.Material.Glass
+
+        rootPart.Touched:Connect(function(hit)
+            local attacker = hit.Parent
+            if attacker and attacker:FindFirstChild("Humanoid") then
+                local attackerName = attacker.Name
+
+                if not lastTouched[attackerName] or (tick() - lastTouched[attackerName]) > debounceTime then
+                    lastTouched[attackerName] = tick()
+                    -- Lógica adicional aqui
+                end
+            end
+        end)
+    end
+end
